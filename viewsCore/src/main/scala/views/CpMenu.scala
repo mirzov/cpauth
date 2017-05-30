@@ -9,7 +9,8 @@ case class CpMenuLeaf(label: String, ref: URI) extends CpMenuItem
 
 object CpMenu {
 
-	val cpHome = "https://www.icos-cp.eu"
+	//val cpHome = "https://www.icos-cp.eu"
+	val cpHome = "https://demo.icos-cp.eu"
 	val riHome = "https://www.icos-ri.eu"
 
 	val landingPage = Seq(
@@ -20,13 +21,11 @@ object CpMenu {
 		item("License", "https://data.icos-cp.eu/licence")
 	)
 
-	val fallback = Seq("Home", "Services", "News & Events", "Documents", "About").map(item(_, cpHome))
-
-	def default = MenuProvider.menu.getOrElse(fallback)
+	val fallback = "<div id=\"cp_theme_d8_menu\"><ul><li><div class=\"link\"><a href=\"" + cpHome + "\">Home</a></div></li></ul></div>"
+	def menu = MenuProvider.menu.getOrElse(fallback)
 
 	def item(label: String, url: String): CpMenuItem = CpMenuLeaf(label, new URI(url))
 
 	def group(label: String)(first: CpMenuItem, rest: CpMenuItem*): CpMenuItem =
 		CpMenuGroup(label, first +: rest)
 }
-

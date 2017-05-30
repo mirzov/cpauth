@@ -3,17 +3,15 @@ package se.lu.nateko.cp.viewscore
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 import scala.util.Success
-import views.CpMenuItem
 
 object MenuProvider {
-
-	private[this] var _menu: Option[Seq[CpMenuItem]] = None
+	private[this] var _menu: Option[String] = None
 
 	val hasInitialized = {
 
 		val task = new Runnable {
 
-			def run(): Unit = MenuFetcher.getMenu match{
+			def run(): Unit = MenuGrabber.getMenu match{
 				case Success(newMenu) => _menu = Some(newMenu)
 				case _ =>
 			}
@@ -25,5 +23,4 @@ object MenuProvider {
 	}
 
 	def menu = _menu
-
 }

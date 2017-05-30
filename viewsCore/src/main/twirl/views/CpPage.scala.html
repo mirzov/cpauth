@@ -1,30 +1,16 @@
-@import views.CpMenuItem
 @import views.CpMenu
 
-@(title: String, menu: Seq[CpMenuItem] = CpMenu.default)(customHeader: Html)(body: Html)
+@(title: String, menu: String = CpMenu.menu)(customHeader: Html)(body: Html)
 <!DOCTYPE html>
 <html>
 <head>
 	<link rel="stylesheet" href="https://static.icos-cp.eu/constant/bootstrap/3.3.4/css/bootstrap.min.css">
 
+	<script src="https://static.icos-cp.eu/constant/jquery/1.11.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://static.icos-cp.eu/css/menu.min.css">
+	
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	@if(menu.nonEmpty){
-		<script>
-			window.addEventListener("load", function(){
-				var menuGroups = document.getElementsByClassName("open_menu");
-
-				for(var idx = 0; idx < menuGroups.length; idx++){
-					var elem = menuGroups[idx];
-
-					elem.addEventListener("click", function(event){
-						event.target.parentElement.classList.toggle('open');
-					});
-				}
-			});
-		</script>
-	}
 
 	@customHeader
 
@@ -43,8 +29,8 @@
 		</div>
 	</header>
 
-	<div id="cp-main-menu">
-		@MainMenu(menu)
+	<div id="cp-menu">
+		@Html(menu)
 	</div>
 
 	<div id="cp-main-content">
@@ -56,5 +42,7 @@
 	@Footer()
 
 </body>
-</html>
 
+<script src="https://static.icos-cp.eu/js/menu.min.js"></script>
+
+</html>
