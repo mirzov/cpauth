@@ -30,10 +30,10 @@ object MenuGrabber {
 			if(block.contains("id=\"cp_theme_d8_menu\"")){	
 				res = block.replaceAll("href=\"/", "href=\"" + host)
 				res = res.replaceAll("src=\"/", "src=\"" + host)
-				
-				scanner.close()
 			}
 		}
+		
+		scanner.close()
 
 		if(res.isEmpty) Failure(new Exception("Could not find menu in CP's main page HTML")) else Success(res)
 	}
