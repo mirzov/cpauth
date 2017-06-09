@@ -1,0 +1,115 @@
+@()
+
+<script type="application/javascript">
+
+    if (testIfOldIE()) {
+        var el = document.getElementById("cp_theme_d8_menu").getElementsByClassName("sublinks");
+
+        for (var i = 0; i < el.length; i ++) {
+        	el[i].style.float = "none";
+        }
+    }
+
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > 799) {
+            closeCPMenuItems(document.getElementById("cp_theme_d8_menu"));
+        }
+    });
+
+    document.addEventListener("click", function(e) {
+        if (window.innerWidth > 799) {
+
+            var notInMenu = true;
+            var el = e.target;
+
+            while (el) {
+                if (el.className == "is_topnode") {
+                    notInMenu = false;
+                }
+                el = el.parentElement;
+            }
+
+            if (notInMenu) { closeCPMenuItems(document.getElementById("cp_theme_d8_menu")); }
+        }
+    });
+
+    document.addEventListener("click", function(e) {
+
+        if (e.target.className == "sublinks") {
+            var cont = e.target.parentElement.parentElement;
+            var childrenOfCont = cont.children;
+
+            for (var i = 0; i < childrenOfCont.length; i ++) {
+
+            	if (childrenOfCont[i].nodeName.toLowerCase() == "ul") {
+                    var submenu = childrenOfCont[i];
+
+                    if (submenu.className == "cp_menu_open_submenu") {
+                        submenu.className = "";
+                        submenu.style.display = "none";
+                        e.target.setAttribute("src", "https://static.icos-cp.eu/images/menu_arrow_down_w.png");
+
+                    } else if (submenu.className != "cp_menu_open_submenu") {
+                        var top = cont.parentElement;
+
+                        if (cont.className == "is_topnode") {
+                            closeCPMenuItems(top.parentElement);
+                        }
+
+                        if (cont.className == "has_subnodes") {
+                        	var siblings = cont.parentElement.childNodes;
+                        	for (var j = 0; j < siblings.length; j ++) {
+                        		if (cont !== siblings[j]) {
+                                    closeCPMenuItems(siblings[j]);
+                                }
+                            }
+                        }
+
+                        closeCPMenuItems(top);
+
+                        submenu.className = "cp_menu_open_submenu";
+
+                        if (window.innerWidth < 800) {
+                            submenu.style.display = "block";
+                            submenu.style.position = "relative";
+                            submenu.style.zIndex = "1000";
+                        } else {
+                            submenu.style.display = "block";
+                            submenu.style.position = "absolute";
+                            submenu.style.zIndex = "1000";
+                        }
+
+                        e.target.setAttribute("src", "https://static.icos-cp.eu/images/menu_arrow_right_w.png");
+                    }
+                }
+            }
+        }
+    });
+
+    function closeCPMenuItems(element) {
+        var sublinks = element.getElementsByClassName("sublinks");
+
+        for (var i = 0; i < sublinks.length; i ++) {
+            sublinks[i].setAttribute("src", "https://static.icos-cp.eu/images/menu_arrow_down_w.png");
+        }
+
+        var submenu = element.getElementsByClassName("cp_menu_open_submenu");
+
+        for (var i = 0; i < submenu.length; i ++) {
+        	var elem = submenu[i];
+        	elem.setAttribute("class", "");
+            elem.style.display = "none";
+        }
+    }
+
+    function testIfOldIE() {
+        var browser = window.navigator.userAgent;
+
+        if (browser.indexOf("MSIE ") > 0 || browser.indexOf("Trident/") > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+</script>
