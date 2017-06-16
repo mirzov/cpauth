@@ -9,8 +9,7 @@ case class CpMenuLeaf(label: String, ref: URI) extends CpMenuItem
 
 object CpMenu {
 
-	//val cpHome = "https://www.icos-cp.eu"
-	val cpHome = "https://demo.icos-cp.eu"
+	val cpHome = "https://www.icos-cp.eu"
 	val riHome = "https://www.icos-ri.eu"
 
 	val landingPage = Seq(
