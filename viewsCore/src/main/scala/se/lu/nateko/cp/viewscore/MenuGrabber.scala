@@ -22,7 +22,7 @@ object MenuGrabber {
 		var co: Int = 0
 		val startDivPattern = Pattern.compile("<div")
 		val stopDivPattern = Pattern.compile("</div>")
-		val host: String = "https://www.icos-cp.eu/"
+		val host: String = views.CpMenu.cpHome + "/"
 
 		val reader = new BufferedReader(new InputStreamReader(in))
 		var line: String = null
@@ -31,17 +31,17 @@ object MenuGrabber {
 			if(line.contains("id=\"cp_theme_d8_menu\"")){
 				inMenu = true
 			}
-                                
+
 			if(inMenu){
 				menuStructure += line
 
 				val startDiv = startDivPattern.matcher(line)
 				val stopDiv = stopDivPattern.matcher(line)
-                                        
+
 				while(startDiv.find()){
 					co += 1
 				}
-                                        
+
 				while(stopDiv.find()){
 					co -= 1
 				}
@@ -58,7 +58,7 @@ object MenuGrabber {
 			menuStructure = menuStructure.replaceAll("href=\"/", "href=\"" + host)
 			menuStructure = menuStructure.replaceAll("src=\"/", "src=\"" + host)
 		}
-		
+
 		if(menuStructure.isEmpty) Failure(new Exception("Could not find menu in CP's main page HTML")) else Success(menuStructure)
 	}
 }
