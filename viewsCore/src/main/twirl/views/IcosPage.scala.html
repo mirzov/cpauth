@@ -5,12 +5,13 @@
 	title: String,
 	menu: Seq[CpMenuItem] = CpMenu.default,
 	cpauthHostOpt: Option[String] = None,
-	styleConf: IcosStyleConfig
+	styleConf: IcosStyleConfig,
+	bootstrapVersion: Option[String] = None
 )(customHeader: Html)(body: Html)
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://static.icos-cp.eu/constant/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://static.icos-cp.eu/constant/bootstrap/@{bootstrapVersion.getOrElse("3.3.4")}/css/icos-bootstrap.css">
 
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
